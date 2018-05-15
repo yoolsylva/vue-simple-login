@@ -7,9 +7,9 @@
       <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required
              autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" maxlength="32" required>
       <label for="confirmPassword" class="sr-only">Confirm</label>
-      <input v-model="confirmPassword" type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+      <input v-model="confirmPassword" type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" maxlength="32" required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
     </form>
   </div>
@@ -42,7 +42,6 @@
             },
             register(){
                 if(!this.isValidPass()){
-                    this.error = 'Password not match!'
                     return
                 }
                 this.$http.post('/users', {email: this.email, password: this.password, confirmPassword: this.confirmPassword})
@@ -65,6 +64,12 @@
             },
             isValidPass(){
                 if(this.password !== this.confirmPassword){
+                    this.error = 'Password not match!'
+                    return false
+                }
+                const passRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{5,})");
+                if(!passRegex.test(this.password)){
+                    this.error = 'Password must contain at least 1 uppercase, 1 lowercase, 1 numeric, 1 special character and must be five characters or longer '
                     return false
                 }
                 return true

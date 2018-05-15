@@ -4,10 +4,10 @@
       <h2 class="form-signin-heading">Please sign in</h2>
       <div class="alert alert-danger" v-if="error">{{error}}</div>
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required
+      <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" maxlength="32" required
              autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" maxlength="32" required>
       <p class="forgot"><router-link :to="{ path: '/register' }">Register</router-link></p>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
